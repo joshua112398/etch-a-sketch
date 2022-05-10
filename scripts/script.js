@@ -9,6 +9,7 @@ function createFrame() {
   body.appendChild(frame);
 
   createGrid(frame, 16);
+  return;
 }
 //---------------------------------------
 function createGrid(frame, size) {
@@ -23,14 +24,34 @@ function createGrid(frame, size) {
       square.style.width=`${squarewidth}px`;
       square.style.height=`${squareheight}px`;
       square.style.border='solid 1px black';
+      square.style.backgroundColor= 'rgba(0, 0, 0, 0)';
       square.classList.add('square');
       row.appendChild(square);
     }
   }
+  return;
+}
+//---------------------------------------
+function removeGrid(frame) {
+  const rows = document.querySelectorAll('.row');
+  rows.forEach((row) => {
+    frame.removeChild(row);
+  });
+  return;
 }
 //---------------------------------------
 function paintSquare(e) {
-  e.currentTarget.style.backgroundColor='black';
+  if (e.currentTarget.style.backgroundColor === 'rgb(0, 0, 0)') {
+    return; // if already black, do nothing
+  }
+  let strLength = (e.currentTarget.style.backgroundColor).length;
+  const rgbStr = e.currentTarget.style.backgroundColor.slice(5, strLength - 1);
+  const strArr = rgbStr.split(', ');
+  console.log(strArr);
+  let alpha = parseFloat(strArr[3]) + 0.1; // transparency value
+  console.log(alpha);
+  e.currentTarget.style.backgroundColor = `rgba(0, 0, 0, ${alpha})`;
+  return;
 }
 //---------------------------------------
 function touchSquare() {
@@ -38,6 +59,7 @@ function touchSquare() {
   squares.forEach((square) => {
     square.addEventListener('mouseenter', paintSquare);
   });
+  return;
 }
 //---------------------------------------
 function changeDensity() {
@@ -50,14 +72,9 @@ function changeDensity() {
     createGrid(frame, size);
     touchSquare();
   });
+  return;
 }
 //---------------------------------------
-function removeGrid(frame) {
-  const rows = document.querySelectorAll('.row');
-  rows.forEach((row) => {
-    frame.removeChild(row);
-  });
-}
 
 createFrame();
 touchSquare();
