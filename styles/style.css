@@ -4,19 +4,32 @@ html {
 
 body {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100%;
+    gap: 50px;
 }
 
 .frame {
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
+    justify-content: stretch;
+    align-items: stretch;
     margin: 0px;
     padding: 0px;
     gap: 0px;
 }
 
+.row {
+    display: flex;
+    justify-content: stretch;
+    align-items: stretch;
+    width: 100%;
+}
+
 .square {
     box-sizing: border-box;
+    flex-grow: 1;
 }
